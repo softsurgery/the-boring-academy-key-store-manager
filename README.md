@@ -6,6 +6,9 @@ Welcome to the Boring Academy Key Store Manager! This application allows you to 
 * [Features](#Features)
 * [Installation](#Installation)
 * [Configuration](#Configuration)
+* [Contributing](#Contributing)
+* [License](#License)
+
 
 ## Features
 * Manage Activation Keys: Generate unique activation keys for courses offered by The Boring Academy.
