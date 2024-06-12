@@ -1,14 +1,17 @@
-from flask import Flask, jsonify, redirect, render_template, request, url_for
+from flask import Flask
 from dotenv import load_dotenv
 import os
 import firebase_admin
-from firebase_admin import credentials, db
+from firebase_admin import credentials
+from flask_cors import CORS, cross_origin
 from modules.TestModule import test_module
+from modules.KeyModule import key_module
 
 load_dotenv()
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 
 cred = credentials.Certificate(os.getenv('FIREBASE_ADMIN_SDK'))
@@ -17,34 +20,14 @@ firebase_admin.initialize_app(cred, {
 })
 
 app.register_blueprint(test_module, url_prefix='/test')
+app.register_blueprint(key_module, url_prefix='/keys')
+
 
 @app.route('/')
+@cross_origin()
 def index():
     return 'Hello, Flask with Firebase!'
 
-
-
-@app.route('/form')
-def form():
-    return render_template('form.html')
-
-@app.route('/submit', methods=['POST'])
-def submit_data():
-    name = request.form.get('name')
-    email = request.form.get('email')
-
-    if not name or not email:
-        return jsonify({"success": False, "message": "Name and Email are required."}), 400
-
-    # Push data to Firebase Realtime Database
-    ref = db.reference('/access-key')
-    new_data = ref.push({
-        'name': name,
-        'email': email
-    })
-
-    return redirect(url_for('index'))
-
 if __name__ == '__main__':
-    port = int(os.getenv('FLASK_RUN_PORT', 5001))  # Default to 5000 if not set
+    port = int(os.getenv('FLASK_RUN_PORT', 5001))
     app.run(debug=True, port=port)
