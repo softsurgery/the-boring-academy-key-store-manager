@@ -25,6 +25,18 @@ def post_key():
         return jsonify({"success": False, "message": str(e)}), 500
     
 
+@key_module.route('/<key_id>', methods=['GET'])
+def get_key(key_id):
+    try:
+        ref = db.reference(f'/keys/{key_id}')
+        data = ref.get()
+        if data is None:
+            return jsonify({"success": False, "message": "Key not found"}), 404
+        return jsonify(data), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    
+
 @key_module.route('/<key_id>', methods=['PUT'])
 def update_key(key_id):
     try:
