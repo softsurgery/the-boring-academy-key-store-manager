@@ -1,0 +1,509 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is a simple Access API",
+      "version": "1.0.0",
+      "title": "Access API"
+    },
+    "host": "localhost:5001",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "keys",
+        "description": "Key operations"
+      },
+      {
+        "name": "students",
+        "description": "Student operations"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/keys/": {
+        "post": {
+          "tags": [
+            "keys"
+          ],
+          "summary": "Create a new key",
+          "description": "Create a new activation key",
+          "operationId": "postKey",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Key object that needs to be added",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateActivationKeyDto"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Key generated successfully",
+              "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "/keys/{id}": {
+        "get": {
+          "tags": [
+            "keys"
+          ],
+          "summary": "Get a key by ID",
+          "description": "Fetch a key given its ID",
+          "operationId": "getKey",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the key to fetch",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Key found",
+              "schema": {
+                "$ref": "#/definitions/Key"
+              }
+            },
+            "404": {
+              "description": "Key not found",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "keys"
+          ],
+          "summary": "Update a key by ID",
+          "description": "Update a key given its ID",
+          "operationId": "updateKey",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the key to update",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Key object that needs to be updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UpdateActivationKeyDto"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Key updated successfully",
+              "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+              }
+            },
+            "404": {
+              "description": "Key not found",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "keys"
+          ],
+          "summary": "Delete a key by ID",
+          "description": "Delete a key given its ID",
+          "operationId": "deleteKey",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the key to delete",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Key deleted successfully",
+              "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+              }
+            },
+            "404": {
+              "description": "Key not found",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "/students/": {
+        "post": {
+          "tags": [
+            "students"
+          ],
+          "summary": "Create a new student",
+          "description": "Create a new student record",
+          "operationId": "createStudent",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Student object that needs to be added",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateStudentDto"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Student created successfully",
+              "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      },
+      "/students/{id}": {
+        "get": {
+          "tags": [
+            "students"
+          ],
+          "summary": "Get a student by ID",
+          "description": "Fetch a student given its ID",
+          "operationId": "getStudent",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the student to fetch",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Student found",
+              "schema": {
+                "$ref": "#/definitions/Student"
+              }
+            },
+            "404": {
+              "description": "Student not found",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "students"
+          ],
+          "summary": "Update a student by ID",
+          "description": "Update a student record given its ID",
+          "operationId": "updateStudent",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the student to update",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Student object that needs to be updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateStudentDto"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Student updated successfully",
+              "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+              }
+            },
+            "404": {
+              "description": "Student not found",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "students"
+          ],
+          "summary": "Delete a student by ID",
+          "description": "Delete a student record given its ID",
+          "operationId": "deleteStudent",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of the student to delete",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Student deleted successfully",
+              "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+              }
+            },
+            "404": {
+              "description": "Student not found",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            },
+            "500": {
+              "description": "Server error",
+              "schema": {
+                "$ref": "#/definitions/ErrorResponse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "CreateActivationKeyDto": {
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "some-key"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-12-31T23:59:59Z"
+          }
+        }
+      },
+      "UpdateActivationKeyDto": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "updated-key"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-12-31T23:59:59Z"
+          }
+        }
+      },
+      "CreateStudentDto": {
+        "type": "object",
+        "required": [
+          "name",
+          "email"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "john.doe@example.com"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Operation completed successfully."
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "message": {
+            "type": "string",
+            "example": "An error occurred."
+          }
+        }
+      },
+      "Key": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "example": "some-key"
+          },
+          "is_connected_once_desktop": {
+            "type": "boolean",
+            "example": false
+          },
+          "is_connected_once_mobile": {
+            "type": "boolean",
+            "example": false
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-01T00:00:00Z"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-12-31T23:59:59Z"
+          }
+        }
+      },
+      "Student": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "john.doe@example.com"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-01T00:00:00Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-01-01T00:00:00Z"
+          }
+        }
+      }
+    }
+  }
+  

@@ -5,6 +5,8 @@ from .KeyModel import CreateActivationKeyDto,UpdateActivationKeyDto
 from uuid import uuid4
 from . import key_module
 
+
+
 @key_module.route('/', methods=['POST'])
 def post_key():
     try:
@@ -24,10 +26,10 @@ def post_key():
         return jsonify({"success": False, "message": str(e)}), 500
     
 
-@key_module.route('/<key_id>', methods=['GET'])
-def get_key(key_id):
+@key_module.route('/<id>', methods=['GET'])
+def get_key(id):
     try:
-        ref = db.reference(f'/keys/{key_id}')
+        ref = db.reference(f'/keys/{id}')
         data = ref.get()
         if data is None:
             return jsonify({"success": False, "message": "Key not found"}), 404
@@ -36,12 +38,12 @@ def get_key(key_id):
         return jsonify({"success": False, "message": str(e)}), 500
     
 
-@key_module.route('/<key_id>', methods=['PUT'])
-def update_key(key_id):
+@key_module.route('/<id>', methods=['PUT'])
+def update_key(id):
     try:
         data = request.json
         data = UpdateActivationKeyDto(**data)
-        ref = db.reference(f'/keys/{key_id}')
+        ref = db.reference(f'/keys/{id}')
         current_data = ref.get()
 
         if not current_data:
@@ -56,10 +58,10 @@ def update_key(key_id):
         return jsonify({"success": False, "message": str(e)}), 500
     
 
-@key_module.route('/<key_id>', methods=['DELETE'])
-def delete_key(key_id):
+@key_module.route('/<id>', methods=['DELETE'])
+def delete_key(id):
     try:
-        ref = db.reference(f'/keys/{key_id}')
+        ref = db.reference(f'/keys/{id}')
         current_data = ref.get()
         if not current_data:
             return jsonify({"success": False, "message": "Key not found"}), 404
