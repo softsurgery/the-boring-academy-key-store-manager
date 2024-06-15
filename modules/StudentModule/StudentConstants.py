@@ -1,0 +1,23 @@
+regions = [
+    'Tunis',
+    'Bizerte',
+    'Nabeul',
+    'Sfax',
+    'Sousse',
+    'Kairouan',
+    'Kasserine',
+    'Gafsa',
+    'Jendouba',
+    'Gabes',
+    'Medenine',
+    'Tataouine',
+    'Tozeur',
+    'Kebili',
+    'Siliana',
+    'Kef',
+    'Monastir',
+    'Mahdia',
+    'Zaghouan',
+    'Manouba',
+    'Other'
+]

@@ -1,11 +1,12 @@
-from pydantic import BaseModel, EmailStr, Field
+
+from pydantic import BaseModel,UUID4
 from typing import List, Optional
 from datetime import datetime
 
 class CreateActivationKeyDto(BaseModel):
     expires_at: Optional[datetime]
     is_active: bool = True
-    user_id: int
+    user_id:str
     course_ids: List[int]
 
 class UpdateActivationKeyDto(BaseModel):
